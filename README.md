@@ -33,6 +33,17 @@ Restart munin-node.
 sudo /etc/init.d/munin-node restart
 ```
 
+### Running under systemd
+
+The default munin-node.service in Debian 10 sets `ProtectHome=true`. When env.RAILS_ROOT points to a location inside a user home directory, the munin plugin won't be able to access any of the required files.
+
+A minimal workaround might look like this:
+
+```
+ProtectHome=false
+InaccessiblePaths=/root
+``` 
+
 ## Contributing
 
 1. Fork it ( http://github.com/t-cyrill/munin-sidekiq_stats/fork )
