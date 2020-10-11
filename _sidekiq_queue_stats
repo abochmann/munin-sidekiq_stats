@@ -14,6 +14,7 @@ eval "$(rbenv init -)"
 cd $RAILS_ROOT
 
 RUBY_SCRIPT=$(cat << '_EOT_'
+require 'sidekiq/api'
 stats = Sidekiq::Stats.new
 puts "current_enqueued.value #{stats.enqueued}"
 _EOT_
@@ -34,6 +35,6 @@ current_enqueued.type GAUGE
 _EOT_
     exit 0;;
   *)
-    bundle exec rails runner "${RUBY_SCRIPT}";
+    bundle exec ruby -e "${RUBY_SCRIPT}";
     exit 0;;
 esac
